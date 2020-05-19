@@ -7,7 +7,7 @@ A simple SDK for access to the [DVLA Vehicle Enquiry API](https://developer-port
 
 To be able to use this SDK, you will require an Api Key, which you can apply for from the [DVLA](https://developer-portal.driver-vehicle-licensing.api.gov.uk/apis/vehicle-enquiry-service/Register-For-VES-API.html).
 
-DVSA.MOT.SDK is available from [NuGet](https://www.nuget.org/packages/AjsWebDesign.DVLA.VEHICLE.ENQUIRY.SDK) or as a manual download directly from GitHub.
+DVLA.VEHICLE.ENQUIRY.SDK is available from [NuGet](https://www.nuget.org/packages/AjsWebDesign.DVLA.VEHICLE.ENQUIRY.SDK) or as a manual download directly from GitHub.
 
 ## Usage
 
