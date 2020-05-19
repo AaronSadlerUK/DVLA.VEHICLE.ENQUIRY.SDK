@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Net.Http.Json;
+using System.Text;
 using System.Threading.Tasks;
-using System.Web;
 using DVLA.VEHICLE.ENQUIRY.SDK.Interfaces;
 using DVLA.VEHICLE.ENQUIRY.SDK.Models;
 using Microsoft.Extensions.Logging;
@@ -28,9 +28,9 @@ namespace DVLA.VEHICLE.ENQUIRY.SDK.Services
         /// <summary>
         /// Returns an object containing the results from the database
         /// </summary>
-        /// <param name="parameters">Query string parameters</param>
+        /// <param name="registration"></param>
         /// <returns></returns>
-        public async Task<ApiResponse> GetData(IEnumerable<KeyValuePair<string, string>> parameters)
+        public async Task<ApiResponse> GetData(Registration registration)
         {
             var apiResponse = new ApiResponse();
             _httpClient.DefaultRequestHeaders.Clear();
@@ -38,18 +38,39 @@ namespace DVLA.VEHICLE.ENQUIRY.SDK.Services
                 new MediaTypeWithQualityHeaderValue(Constants.ApiAcceptHeader));
             _httpClient.DefaultRequestHeaders.Add(Constants.ApiKeyHeader, _apiKey.Value.DVLAApiKey);
 
-            var url = GenerateUrl(parameters);
-            var request = await _httpClient.GetAsync(url);
+            var url = Constants.ApiRootUrl + Constants.ApiPath;
+            var postRequest = new HttpRequestMessage(HttpMethod.Post, url)
+            {
+                Content = JsonContent.Create(registration)
+            };
+            var request = await _httpClient.SendAsync(postRequest);
             apiResponse.ReasonPhrase = request.ReasonPhrase;
             apiResponse.StatusCode = (int)request.StatusCode;
 
             if (!request.IsSuccessStatusCode)
             {
                 var response = await ConvertToErrorObject(request.Content);
-                var responseMessage = $"{response.Title} - {response.Detail}";
-                _logger.Log(LogLevel.Error, responseMessage);
+                var sb = new StringBuilder();
+                if (!string.IsNullOrEmpty(response.Title))
+                {
+                    sb.Append(response.Title);
+                }
+
+                if (!string.IsNullOrEmpty(response.Title) && !string.IsNullOrEmpty(response.Detail))
+                {
+                    sb.Append(" - ");
+                }
+
+                if (!string.IsNullOrEmpty(response.Detail))
+                {
+                    sb.Append(response.Detail);
+                }
+
+                var responseMessage = sb.ToString();
+                _logger.Log(LogLevel.Error, sb.ToString());
 
                 apiResponse.ResponseMessage = responseMessage;
+                apiResponse.DvlaReferenceCode = response.Code;
             }
 
             if (request.IsSuccessStatusCode)
@@ -75,8 +96,8 @@ namespace DVLA.VEHICLE.ENQUIRY.SDK.Services
                 if (string.IsNullOrEmpty(json))
                     return null;
 
-                var motTestResponses = JsonConvert.DeserializeObject<VehicleDetails>(json);
-                return motTestResponses;
+                var vehicleDetailsResponse = JsonConvert.DeserializeObject<VehicleDetails>(json);
+                return vehicleDetailsResponse;
             }
             catch (Exception ex)
             {
@@ -101,33 +122,14 @@ namespace DVLA.VEHICLE.ENQUIRY.SDK.Services
                 if (string.IsNullOrEmpty(json))
                     return null;
 
-                var motTestResponses = JsonConvert.DeserializeObject<ApiErrorResponse>(json);
-                return motTestResponses;
+                var vehiclesDetailsErrorResponse = JsonConvert.DeserializeObject<ApiErrorResponse>(json);
+                return vehiclesDetailsErrorResponse;
             }
             catch (Exception ex)
             {
                 _logger.Log(LogLevel.Error, ex, ex.Message);
                 return null;
             }
-        }
-
-        /// <summary>
-        /// Generate a url with parameters for the HttpClient request
-        /// </summary>
-        /// <param name="parameters"></param>
-        /// <returns></returns>
-        private static string GenerateUrl(IEnumerable<KeyValuePair<string, string>> parameters)
-        {
-            var baseURl = $"{Constants.ApiRootUrl}{Constants.ApiPath}";
-            var uriBuilder = new UriBuilder(baseURl);
-            var query = HttpUtility.ParseQueryString(uriBuilder.Query);
-            foreach (var param in parameters)
-            {
-                query.Add(param.Key, param.Value);
-            }
-            uriBuilder.Query = query.ToString();
-            baseURl = uriBuilder.ToString();
-            return baseURl;
         }
     }
 }

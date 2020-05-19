@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using DVLA.VEHICLE.ENQUIRY.SDK.Models;
 
 namespace DVLA.VEHICLE.ENQUIRY.SDK.Interfaces
@@ -11,6 +10,6 @@ namespace DVLA.VEHICLE.ENQUIRY.SDK.Interfaces
         /// </summary>
         /// <param name="parameters">Query string parameters</param>
         /// <returns></returns>
-        Task<ApiResponse> GetData(IEnumerable<KeyValuePair<string, string>> parameters);
+        Task<ApiResponse> GetData(Registration parameters);
     }
 }
