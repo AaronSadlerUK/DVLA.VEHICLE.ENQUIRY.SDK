@@ -1,7 +1,7 @@
 # DVLA.VEHICLE.ENQUIRY.SDK
 ![nuget badge](https://img.shields.io/nuget/v/AjsWebDesign.DVSA.MOT.SDK)
 
-A simple SDK for access to the [DVSA MOT history API](https://developer-portal.driver-vehicle-licensing.api.gov.uk/availableapis.html)
+A simple SDK for access to the [DVLA Vehicle Enquiry API](https://developer-portal.driver-vehicle-licensing.api.gov.uk/availableapis.html)
 
 ### Installation
 
