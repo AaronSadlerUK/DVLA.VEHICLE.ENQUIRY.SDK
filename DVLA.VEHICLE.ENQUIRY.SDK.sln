@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30104.148
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DVLA.VEHICLE.ENQUIRY.SDK", "DVLA.VEHICLE.ENQUIRY.SDK\DVLA.VEHICLE.ENQUIRY.SDK.csproj", "{EC7E52D3-F9A3-4C4D-99C1-1DF3B774F3DD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DVLA.TEST.WEB.API", "DVLA.TEST.WEB.API\DVLA.TEST.WEB.API.csproj", "{89ECB8EC-FB6A-44C7-A989-659A9213823B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EC7E52D3-F9A3-4C4D-99C1-1DF3B774F3DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC7E52D3-F9A3-4C4D-99C1-1DF3B774F3DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC7E52D3-F9A3-4C4D-99C1-1DF3B774F3DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC7E52D3-F9A3-4C4D-99C1-1DF3B774F3DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89ECB8EC-FB6A-44C7-A989-659A9213823B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89ECB8EC-FB6A-44C7-A989-659A9213823B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89ECB8EC-FB6A-44C7-A989-659A9213823B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89ECB8EC-FB6A-44C7-A989-659A9213823B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DAC72A5B-8DA3-416E-9936-DD75B6AB92EA}
+	EndGlobalSection
+EndGlobal
