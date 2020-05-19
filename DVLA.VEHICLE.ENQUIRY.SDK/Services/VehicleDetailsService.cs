@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using DVLA.VEHICLE.ENQUIRY.SDK.Interfaces;
 using DVLA.VEHICLE.ENQUIRY.SDK.Models;
@@ -19,7 +18,7 @@ namespace DVLA.VEHICLE.ENQUIRY.SDK.Services
         }
 
         /// <summary>
-        /// To request the MOT test history for registration
+        /// To request the vehicle details by registration
         /// </summary>
         /// <param name="registration">Registration of vehicle</param>
         /// <returns>A single vehicles details and mot history</returns>
@@ -30,14 +29,15 @@ namespace DVLA.VEHICLE.ENQUIRY.SDK.Services
                 var apiResponse = new ApiResponse();
                 if (!string.IsNullOrEmpty(registration))
                 {
-                    var parameters = new List<KeyValuePair<string, string>>
+                    var registrationModel = new Registration
                     {
-                        new KeyValuePair<string, string>(Constants.Parameters.Registration, registration)
+                        RegistrationNumber = registration
                     };
-                    return await _processApiResponse.GetData(parameters);
+
+                    return await _processApiResponse.GetData(registrationModel);
                 }
 
-                var responseMessage = Constants.LanguageStrings.SingleVehicleMotHistory.NullRegistrationException;
+                var responseMessage = Constants.LanguageStrings.NullRegistrationException;
                 _logger.Log(LogLevel.Error, responseMessage);
                 apiResponse.ResponseMessage = responseMessage;
                 return apiResponse;

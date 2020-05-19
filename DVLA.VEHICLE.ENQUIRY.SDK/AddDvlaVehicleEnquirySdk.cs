@@ -6,9 +6,10 @@ namespace DVLA.VEHICLE.ENQUIRY.SDK
 {
     public static class IServiceCollectionExtension
     {
-        public static IServiceCollection AddDvsaVehicleEnquirySdk(this IServiceCollection services)
+        public static IServiceCollection AddDvlaVehicleEnquirySdk(this IServiceCollection services)
         {
             services.AddHttpClient<IProcessApiResponse, ProcessApiResponse>();
+            services.AddScoped<IVehicleDetailsService, VehicleDetailsService>();
             return services;
         }
     }
